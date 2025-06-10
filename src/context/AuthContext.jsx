@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export function AuthProvider({ children }) {
   // Helper functions for storage
@@ -26,7 +28,9 @@ export function AuthProvider({ children }) {
 
   // Login function with rememberMe
 const login = async (email, password, rememberMe = false, isAdmin = false) => {
-  const endpoint = isAdmin ? "/api/auth/admin-login" : "/api/auth/login";
+  const endpoint = isAdmin 
+      ? `${API_URL}/api/auth/admin-login` 
+      : `${API_URL}/api/auth/login`;
   const res = await axios.post(endpoint, { email, password });
   if (!res.data || !res.data.user || !res.data.token) {
     throw new Error("Invalid login response from server");

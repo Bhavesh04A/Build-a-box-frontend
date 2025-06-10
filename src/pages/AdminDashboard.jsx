@@ -3,6 +3,8 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import categories from "../data/categories";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [selectedCat, setSelectedCat] = useState("");
@@ -11,7 +13,9 @@ function AdminDashboard() {
 
   // Products fetch
   useEffect(() => {
-    const url = selectedCat ? `/api/products?category=${selectedCat}` : "/api/products";
+    const url = selectedCat 
+      ? `${API_URL}/api/products?category=${selectedCat}`
+      : `${API_URL}/api/products`;;
     axios.get(url).then(res => setProducts(res.data));
   }, [selectedCat, editingProduct, showAddModal]);
 
@@ -76,9 +80,11 @@ function AdminDashboard() {
                 className=" mt-4 bg-red-400 hover:bg-red-600 text-white px-4 py-1 rounded"
                 onClick={async () => {
                   if (window.confirm("Are you sure you want to delete this product?")) {
-                    await axios.delete(`/api/products/${prod._id}`);
+                    await axios.delete(`${API_URL}/api/products/${prod._id}`);
                        setTimeout(async () => {
-                        const url = selectedCat ? `/api/products?category=${selectedCat}` : "/api/products";
+                        const url = selectedCat 
+                          ? `${API_URL}/api/products?category=${selectedCat}` 
+                          : `${API_URL}/api/products`;;
                         const res = await axios.get(url);
                         setProducts(res.data);
                       }, 200);
@@ -111,7 +117,7 @@ function AdminDashboard() {
                     return;
                   }
                   try {
-                    await axios.post('/api/products',  {...newProduct, price: Number(newProduct.price) });
+                    await axios.post(`${API_URL}/api/products`,  {...newProduct, price: Number(newProduct.price) });
                     setShowAddModal(false);
                     setNewProduct(initialFormState);
                   } catch (err) {
@@ -205,7 +211,7 @@ function AdminDashboard() {
             onClose={() => setEditingProduct(null)}
             onSave={async (updated) => {
               try {
-                await axios.put(`/api/products/${updated._id}`, updated);
+                await axios.put(`${API_URL}/api/products/${updated._id}`, updated);
                 setEditingProduct(null);
               } catch (err) {
                 alert("Failed to update product");

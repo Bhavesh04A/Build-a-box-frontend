@@ -4,6 +4,8 @@ import validator from "validator";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Signup() {
   const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
   const [errors, setErrors] = useState({});
@@ -41,7 +43,7 @@ function Signup() {
     if (Object.keys(errs).length === 0) {
       setLoading(true);
       try {
-        const res = await axios.post("/api/auth/signup", {
+        const res = await axios.post(`${API_URL}/api/auth/signup`, {
           name: form.name,
           email: form.email,
           password: form.password

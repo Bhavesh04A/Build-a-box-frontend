@@ -5,6 +5,8 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Dashboard() {
   const { user, token } = useAuth();
   const { cartItems } = useCart();
@@ -20,8 +22,8 @@ export default function Dashboard() {
     if (!token) return;
     setLoading(true);
     Promise.all([
-      axios.get("/api/orders", { headers: { Authorization: `Bearer ${token}` } }),
-      axios.get("/api/box", { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${API_URL}/api/orders`, { headers: { Authorization: `Bearer ${token}` } }),
+      axios.get(`${API_URL}/api/box`, { headers: { Authorization: `Bearer ${token}` } }),
     ])
       .then(([ordersRes, boxesRes]) => {
         setOrders(ordersRes.data || []);

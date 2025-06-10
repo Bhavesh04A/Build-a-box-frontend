@@ -3,6 +3,8 @@ import axios from "axios";
 import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export function CartProvider({ children }) {
   const { token } = useAuth();
@@ -15,7 +17,7 @@ export function CartProvider({ children }) {
     if (token) {
       setLoading(true);
       axios
-        .get("/api/cart", {
+        .get(`${API_URL}/api/cart`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => {
@@ -42,7 +44,7 @@ export function CartProvider({ children }) {
     setBoxName(newBoxName);
     if (token) {
       axios.put(
-        "/api/cart",
+        `${API_URL}/api/cart`,
         { items: newItems, subscriptionType: newType, boxName: newBoxName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -82,7 +84,7 @@ export function CartProvider({ children }) {
     setBoxName("");
     if (token) {
       axios.put(
-        "/api/cart",
+        `${API_URL}/api/cart`,
         { items: [], subscriptionType: "one-time", boxName: "" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -93,7 +95,7 @@ export function CartProvider({ children }) {
   const checkout = async (orderDetails = {}) => {
     if (!token) return;
     await axios.post(
-      "/api/orders",
+      `${API_URL}/api/orders`,
       {
         ...orderDetails,
         items: cartItems,

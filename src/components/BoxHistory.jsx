@@ -5,6 +5,8 @@ import PRODUCTS from "../data/products";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function BoxHistory() {
   const { token } = useAuth();
   const [boxes, setBoxes] = useState([]);
@@ -27,7 +29,7 @@ export default function BoxHistory() {
     if (token) {
       setLoading(true);
       axios
-        .get("/api/box", {
+        .get(`${API_URL}/api/box`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setBoxes(res.data))
@@ -85,7 +87,7 @@ export default function BoxHistory() {
     setMsg("");
     try {
       await axios.put(
-        `/api/box/${editBoxId}`,
+        `${API_URL}/api/box/${editBoxId}`,
         {
           name: editBoxName,
           items: editItems,
@@ -122,7 +124,7 @@ export default function BoxHistory() {
   const handleDelete = async (boxId) => {
     if (!window.confirm("Are you sure you want to delete this box?")) return;
     try {
-      await axios.delete(`/api/box/${boxId}`, {
+      await axios.delete(`${API_URL}/api/box/${boxId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBoxes(boxes.filter(b => b._id !== boxId));

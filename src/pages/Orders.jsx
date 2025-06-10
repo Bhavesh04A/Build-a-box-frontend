@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 export default function Orders() {
   const { token } = useAuth();
   const [orders, setOrders] = useState([]);
@@ -12,7 +15,7 @@ export default function Orders() {
     if (!token) return;
     setLoading(true);
     axios
-      .get("/api/orders", {
+      .get(`${API_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => setOrders(res.data))

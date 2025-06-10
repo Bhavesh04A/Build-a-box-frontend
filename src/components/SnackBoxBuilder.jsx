@@ -8,6 +8,8 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const SUBSCRIPTION_OPTIONS = [
   { label: "One Time", value: "one-time", discount: 0 },
   { label: "Weekly (3% OFF)", value: "weekly", discount: 0.03 },
@@ -41,12 +43,12 @@ export default function SnackBoxBuilder() {
   const [boxName, setBoxName] = useState("");
   const navigate = useNavigate();
 
-  // ======= BACKEND से Products लाएँ =======
+
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const url = selectedCategory
-      ? `/api/products?category=${encodeURIComponent(selectedCategory)}`
-      : "/api/products";
+      ? `${API_URL}/api/products?category=${encodeURIComponent(selectedCategory)}`
+      : `${API_URL}/api/products`;
     axios.get(url).then(res => setProducts(res.data));
   }, [selectedCategory]);
 
@@ -104,7 +106,7 @@ export default function SnackBoxBuilder() {
     }
     try {
       await axios.post(
-        "/api/box",
+        `${API_URL}/api/box`,
         {
           name: boxName,
           items: box,

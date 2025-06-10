@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [box, setBox] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/products").then(res => setProducts(res.data));
+    axios.get(`${API_URL}/api/products`).then(res => setProducts(res.data));
   }, []);
 
   const handleAddToBox = (product) => {
