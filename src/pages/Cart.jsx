@@ -20,8 +20,8 @@ export default function Cart() {
     const items = Array.from(cartItems);
     const [reordered] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reordered);
-    // CartContext me setCartItems backend sync ke liye use hota hai
-    // setCartItems(items); // Agar chaho to yahan bhi useCart se setCartItems le sakte ho
+    // अगर चाहें तो setCartItems से अपडेट करें
+    // setCartItems(items);
   };
 
   const totalPrice = cartItems.reduce(
@@ -50,8 +50,8 @@ export default function Cart() {
     );
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Your Box</h1>
+    <div className="max-w-4xl mx-auto p-4 sm:p-6">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6">Your Box</h1>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="box-list">
           {(provided) => (
@@ -67,23 +67,21 @@ export default function Cart() {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className={`flex items-center gap-4 p-4 border rounded shadow-sm bg-white ${
+                      className={`flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 border rounded shadow-sm bg-white transition ${
                         snapshot.isDragging ? "bg-indigo-50" : ""
                       }`}
                     >
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-16 h-16 object-contain"
+                        className="w-24 h-24 sm:w-16 sm:h-16 object-contain rounded"
                       />
-                      <div className="flex-1">
-                        <h2 className="font-semibold">{item.name}</h2>
-                        <p className="text-indigo-700 font-bold">
-                          ₹{item.price}
-                        </p>
+                      <div className="flex-1 w-full sm:w-auto">
+                        <h2 className="font-semibold text-lg">{item.name}</h2>
+                        <p className="text-indigo-700 font-bold text-base">₹{item.price}</p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
-                            className="px-2 py-1 border rounded"
+                            className="px-3 py-1 border rounded text-lg"
                             onClick={() =>
                               updateQuantity(
                                 item.id,
@@ -94,9 +92,9 @@ export default function Cart() {
                           >
                             -
                           </button>
-                          <span>{item.quantity || 1}</span>
+                          <span className="text-lg font-semibold">{item.quantity || 1}</span>
                           <button
-                            className="px-2 py-1 border rounded"
+                            className="px-3 py-1 border rounded text-lg"
                             onClick={() =>
                               updateQuantity(
                                 item.id,
@@ -108,18 +106,20 @@ export default function Cart() {
                           </button>
                         </div>
                       </div>
-                      <button
-                        className="text-red-600 font-semibold hover:underline"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        Remove
-                      </button>
-                      <span
-                        className="cursor-grab text-gray-400 ml-2"
-                        title="Drag to reorder"
-                      >
-                        &#9776;
-                      </span>
+                      <div className="flex flex-col items-center gap-2 mt-2 sm:mt-0">
+                        <button
+                          className="text-red-600 font-semibold hover:underline"
+                          onClick={() => removeFromCart(item.id)}
+                        >
+                          Remove
+                        </button>
+                        <span
+                          className="cursor-grab text-gray-400 text-xl"
+                          title="Drag to reorder"
+                        >
+                          &#9776;
+                        </span>
+                      </div>
                     </li>
                   )}
                 </Draggable>
@@ -129,13 +129,13 @@ export default function Cart() {
           )}
         </Droppable>
       </DragDropContext>
-      <div className="mt-6 flex items-center justify-between">
+      <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <span className="font-semibold">Subscription Type:</span>{" "}
+          <label className="font-semibold mr-2">Subscription Type:</label>
           <select
             value={subscriptionType}
             onChange={(e) => setSubscriptionType(e.target.value)}
-            className="capitalize border px-2 py-1 rounded"
+            className="capitalize border px-3 py-1 rounded"
           >
             <option value="one-time">One Time</option>
             <option value="weekly">Weekly</option>
@@ -146,7 +146,7 @@ export default function Cart() {
       </div>
       <div className="mt-6 text-right">
         <button
-          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition font-semibold"
+          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition font-semibold w-full sm:w-auto"
           onClick={handleCheckout}
           disabled={loading}
         >

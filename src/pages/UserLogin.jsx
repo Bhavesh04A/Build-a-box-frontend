@@ -50,20 +50,25 @@ function UserLogin() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh] bg-gradient-to-br from-blue-100 to-white">
+    <div className="flex items-center justify-center min-h-[80vh] bg-gradient-to-br from-blue-100 to-white px-2">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md animate-fade-in"
-        autoComplete="on" // Enable browser autofill
+        className="bg-white p-4 sm:p-8 rounded-xl shadow-lg w-full max-w-md animate-fade-in"
+        autoComplete="on"
       >
-        <h2 className="text-3xl font-bold text-blue-400 mb-2 text-center">User Login</h2>
-        <p className="text-gray-500 mb-6 text-center">Login to your account</p>
-        <div className="mb-4">
+        <h2 className="text-2xl sm:text-3xl font-bold text-blue-400 mb-2 sm:mb-4 text-center">User Login</h2>
+        <p className="text-gray-500 mb-4 sm:mb-6 text-center">Login to your account</p>
+        <div className="mb-3 sm:mb-4 text-center text-sm bg-blue-50 border border-blue-300 rounded p-2">
+          <div><b>Demo Credentials</b></div>
+          <div>Email: <span className="font-mono">admin@gmail.com</span></div>
+          <div>Password: <span className="font-mono">admin123</span></div>
+        </div>
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-medium">Email</label>
           <input
             type="email"
             name="email"
-            autoComplete="username" // Important for autofill
+            autoComplete="username"
             className={`w-full px-4 py-2 rounded border transition focus:ring-2 focus:ring-blue-300 ${errors.email && touched.email ? "border-red-500" : "border-gray-300"}`}
             value={form.email}
             onChange={handleChange}
@@ -73,12 +78,12 @@ function UserLogin() {
           />
           {errors.email && touched.email && <span className="text-red-500 text-sm">{errors.email}</span>}
         </div>
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-medium">Password</label>
           <input
             type="password"
             name="password"
-            autoComplete="current-password" // Important for autofill
+            autoComplete="current-password"
             className={`w-full px-4 py-2 rounded border transition focus:ring-2 focus:ring-blue-300 ${errors.password && touched.password ? "border-red-500" : "border-gray-300"}`}
             value={form.password}
             onChange={handleChange}
@@ -89,7 +94,7 @@ function UserLogin() {
           {errors.password && touched.password && <span className="text-red-500 text-sm">{errors.password}</span>}
         </div>
         {/* Remember Me */}
-        <div className="mb-6 flex items-center">
+        <div className="mb-4 sm:mb-6 flex items-center gap-2">
           <input
             type="checkbox"
             id="rememberMe"
@@ -102,7 +107,7 @@ function UserLogin() {
         </div>
         <button
           type="submit"
-          className={`w-full bg-blue-400 text-white py-2 rounded hover:bg-blue-500 transition font-semibold text-lg flex items-center justify-center gap-2 ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
+          className={`w-full bg-blue-400 text-white py-2 sm:py-3 rounded hover:bg-blue-500 transition font-semibold text-lg flex items-center justify-center gap-2 ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
           disabled={loading}
         >
           {loading ? (

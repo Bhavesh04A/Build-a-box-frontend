@@ -6,14 +6,14 @@ import { useCategory } from "../context/CategoryContext";
 export default function Footer() {
   const { setSelectedCategory } = useCategory();
 
-  // Category पर click: setSelectedCategory और scroll to products grid
+  // Split categories for 2-column layout on mobile/tablet
+  const mid = Math.ceil(categoriesData.length / 2);
+  const catCol1 = categoriesData.slice(0, mid);
+  const catCol2 = categoriesData.slice(mid);
+
   const handleCategoryClick = (catName) => {
     setSelectedCategory(catName);
-    // Wait for state update and DOM render, फिर scroll करो
-    setTimeout(() => {
-      const el = document.getElementById("root"); // या window.scrollTo(0,0)
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100);
+    setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
   };
 
   return (
@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
       </div>
       {/* Main Grid */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 pb-6">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-4 pb-6">
         {/* Left: Brand & Tagline */}
         <div className="flex flex-col items-center md:items-start">
           <span className="font-bold text-xl mb-1">Build-a-Box</span>
@@ -61,22 +61,37 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        {/* Categories Section */}
+        {/* Categories Section: 2 columns on mobile/tablet */}
         <div className="flex flex-col items-center">
           <h3 className="font-semibold mb-2">Categories</h3>
-          <ul className="space-y-1 text-center">
-            {categoriesData.map((cat) => (
-              <li key={cat.name}>
-                <button
-                  className="hover:underline hover:text-blue-900 transition bg-transparent outline-none"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleCategoryClick(cat.name)}
-                >
-                  {cat.name}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-row gap-6">
+            <ul className="space-y-1 text-center">
+              {catCol1.map((cat) => (
+                <li key={cat.name}>
+                  <button
+                    className="hover:underline hover:text-blue-900 transition bg-transparent outline-none"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleCategoryClick(cat.name)}
+                  >
+                    {cat.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <ul className="space-y-1 text-center">
+              {catCol2.map((cat) => (
+                <li key={cat.name}>
+                  <button
+                    className="hover:underline hover:text-blue-900 transition bg-transparent outline-none"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleCategoryClick(cat.name)}
+                  >
+                    {cat.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         {/* Right: Contact Us */}
         <div className="flex flex-col items-center md:items-end">

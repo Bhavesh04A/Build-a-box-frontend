@@ -34,7 +34,6 @@ function Signup() {
     setErrors(validate());
   };
 
-
   const handleSubmit = async e => {
     e.preventDefault();
     const errs = validate();
@@ -59,15 +58,15 @@ function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh] bg-gradient-to-br from-blue-100 to-white">
+    <div className="flex items-center justify-center min-h-[80vh] bg-gradient-to-br from-blue-100 to-white px-2">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md animate-fade-in"
+        className="bg-white p-4 sm:p-8 rounded-xl shadow-lg w-full max-w-md animate-fade-in"
         autoComplete="off"
       >
-        <h2 className="text-3xl font-bold text-blue-400 mb-2 text-center">Sign Up</h2>
-        <p className="text-gray-500 mb-6 text-center">Create your account</p>
-        <div className="mb-4">
+        <h2 className="text-2xl sm:text-3xl font-bold text-blue-400 mb-2 sm:mb-4 text-center">Sign Up</h2>
+        <p className="text-gray-500 mb-4 sm:mb-6 text-center">Create your account</p>
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-medium">Name</label>
           <input
             type="text"
@@ -80,7 +79,7 @@ function Signup() {
           />
           {errors.name && touched.name && <span className="text-red-500 text-sm">{errors.name}</span>}
         </div>
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-medium">Email</label>
           <input
             type="email"
@@ -93,7 +92,7 @@ function Signup() {
           />
           {errors.email && touched.email && <span className="text-red-500 text-sm">{errors.email}</span>}
         </div>
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-medium">Password</label>
           <input
             type="password"
@@ -106,7 +105,7 @@ function Signup() {
           />
           {errors.password && touched.password && <span className="text-red-500 text-sm">{errors.password}</span>}
         </div>
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <label className="block mb-1 font-medium">Confirm Password</label>
           <input
             type="password"
@@ -121,7 +120,7 @@ function Signup() {
         </div>
         <button
           type="submit"
-          className={`w-full bg-blue-400 text-white py-2 rounded hover:bg-blue-500 transition font-semibold text-lg flex items-center justify-center gap-2 ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
+          className={`w-full bg-blue-400 text-white py-2 sm:py-3 rounded hover:bg-blue-500 transition font-semibold text-lg flex items-center justify-center gap-2 ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
           disabled={loading}
         >
           {loading ? (

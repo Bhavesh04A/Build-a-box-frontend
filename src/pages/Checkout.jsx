@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 export default function Checkout() {
-  const { cartItems, subscriptionType, checkout, boxName } = useCart(); // boxName भी लिया
+  const { cartItems, subscriptionType, checkout, boxName } = useCart();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,7 +37,7 @@ export default function Checkout() {
       address,
       phone,
       payment,
-      boxName, // <-- boxName भेजा
+      boxName,
     });
   };
 
@@ -61,14 +61,14 @@ export default function Checkout() {
   }
 
   return (
-    <div className="max-w-xl mx-auto py-10">
-      <h2 className="text-2xl font-bold mb-6 text-[#1769aa]">Checkout</h2>
+    <div className="max-w-xl mx-auto px-2 py-8 sm:py-10">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-[#1769aa]">Checkout</h2>
       {cartItems.length > 0 && (
-        <div className="mb-4 bg-blue-50 p-3 rounded">
+        <div className="mb-4 bg-blue-50 p-3 sm:p-4 rounded">
           <div className="font-semibold mb-2">Your Items:</div>
           <ul className="mb-2">
             {cartItems.map((item, idx) => (
-              <li key={item.id + idx} className="flex justify-between">
+              <li key={item.id + idx} className="flex justify-between text-sm sm:text-base">
                 <span>{item.name} × {item.quantity}</span>
                 <span>₹{item.price * item.quantity}</span>
               </li>
@@ -89,8 +89,8 @@ export default function Checkout() {
           )}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
-        <div className="mb-4">
+      <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 rounded-lg shadow">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-semibold">Full Name</label>
           <input
             required
@@ -100,7 +100,7 @@ export default function Checkout() {
             placeholder="Your Name"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-semibold">Shipping Address</label>
           <textarea
             required
@@ -110,7 +110,7 @@ export default function Checkout() {
             placeholder="Full Address"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-semibold">Phone Number</label>
           <input
             required
@@ -121,7 +121,7 @@ export default function Checkout() {
             type="tel"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-semibold">Payment Method</label>
           <select
             className="border rounded w-full p-2"
@@ -136,7 +136,7 @@ export default function Checkout() {
         {error && <div className="text-red-500 mb-2">{error}</div>}
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-[#1769aa] to-[#43addf] text-white py-3 rounded-full font-semibold hover:from-[#023047] hover:to-[#1769aa] transition text-lg shadow"
+          className="w-full bg-gradient-to-r from-[#1769aa] to-[#43addf] text-white py-2 sm:py-3 rounded-full font-semibold hover:from-[#023047] hover:to-[#1769aa] transition text-base sm:text-lg shadow"
         >
           Place Order
         </button>

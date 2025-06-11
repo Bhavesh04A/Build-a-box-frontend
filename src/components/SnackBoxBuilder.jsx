@@ -43,7 +43,6 @@ export default function SnackBoxBuilder() {
   const [boxName, setBoxName] = useState("");
   const navigate = useNavigate();
 
-
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const url = selectedCategory
@@ -66,7 +65,7 @@ export default function SnackBoxBuilder() {
 
   // ======= Box Controls (सिर्फ _id से काम करें) =======
   const handleAddToBox = (product) => {
-    addToCart(product); // CartContext में भी _id से matching होनी चाहिए
+    addToCart(product);
   };
   const handleRemoveFromBox = (product) => removeFromCart(product._id);
   const handleIncrease = (product) =>
@@ -130,12 +129,12 @@ export default function SnackBoxBuilder() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-[#f5faff] via-[#e9f3fc] to-[#f7faff] py-10 px-2">
+    <div className="min-h-screen bg-gradient-to-tr from-[#f5faff] via-[#e9f3fc] to-[#f7faff] py-6 px-2 sm:py-10 sm:px-4">
       <div className="max-w-7xl mx-auto">
         <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
           {/* Products Grid */}
-          <div className="mb-10">
-            <h3 className="text-3xl font-extrabold mb-4 text-[#1769aa] tracking-tight drop-shadow-lg">
+          <div className="mb-8 sm:mb-10">
+            <h3 className="text-2xl sm:text-3xl font-extrabold mb-4 text-[#1769aa] tracking-tight drop-shadow-lg">
               <span className="bg-gradient-to-r from-[#43addf] to-[#1769aa] bg-clip-text text-transparent">
                Gallery
               </span>
@@ -149,8 +148,8 @@ export default function SnackBoxBuilder() {
                 <motion.div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8"
-                  style={{ minHeight: 260 }}
+                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5 md:gap-8"
+                  style={{ minHeight: 200 }}
                   variants={gridVariants}
                   initial="hidden"
                   animate="visible"
@@ -169,13 +168,13 @@ export default function SnackBoxBuilder() {
                             {...provided.dragHandleProps}
                             variants={productVariants}
                             whileHover={{ scale: 1.04, boxShadow: "0 8px 32px #43addf33" }}
-                            className={`relative flex flex-col items-center bg-white rounded-2xl border border-[#43addf] shadow-md w-[140px] h-[150px] mx-auto p-3 transition-all ${
+                            className={`relative flex flex-col items-center bg-white rounded-2xl border border-[#43addf] shadow-md w-full max-w-[140px] h-[110px] sm:h-[140px] mx-auto p-2 sm:p-3 transition-all ${
                               snapshot.isDragging ? "ring-4 ring-[#43addf]/40 scale-105 z-10" : ""
                             }`}
                             style={{
                               aspectRatio: "1/1",
-                              minWidth: 100,
-                              minHeight: 100,
+                              minWidth: 90,
+                              minHeight: 90,
                               cursor: "grab",
                             }}
                             initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -186,10 +185,10 @@ export default function SnackBoxBuilder() {
                             <img
                               src={product.image}
                               alt={product.name}
-                              className="w-16 h-16 object-cover rounded-xl mb-2 pointer-events-none shadow"
+                              className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-xl mb-2 pointer-events-none shadow"
                             />
                             <div className="text-center mb-1">
-                              <p className="font-extrabold text-[#023047] text-base">
+                              <p className="font-extrabold text-[#023047] text-xs sm:text-base">
                                 {product.name}
                               </p>
                               <p className="text-[#1769aa] font-semibold text-xs">
@@ -201,7 +200,7 @@ export default function SnackBoxBuilder() {
                                 e.preventDefault();
                                 handleAddToBox(product);
                               }}
-                              className="mt-1 px-3 py-1 bg-gradient-to-r from-[#43addf] to-[#1769aa] text-white rounded-full hover:scale-105 font-semibold text-xs transition shadow"
+                              className="mt-1 px-2 py-1 sm:px-3 bg-gradient-to-r from-[#43addf] to-[#1769aa] text-white rounded-full hover:scale-105 font-semibold text-xs transition shadow"
                             >
                               Add
                             </button>
@@ -217,25 +216,25 @@ export default function SnackBoxBuilder() {
           </div>
 
           {/* Your Box */}
-          <div className="mt-10 flex flex-col items-center">
+          <div className="mt-8 sm:mt-10 flex flex-col items-center">
             <motion.div
-              className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-[#43addf] relative pb-8 pt-6 px-6"
+              className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-[#43addf] relative pb-6 pt-4 px-3 sm:pb-8 sm:pt-6 sm:px-6"
               initial={{ scale: 0.97, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 100, damping: 18 }}
             >
               {/* Box Header with Clear Button */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-2">
                 <div className="flex items-center">
-                  <FiBox className="text-[#1769aa] mr-2" size={28} />
-                  <h3 className="text-2xl font-bold text-[#023047] tracking-wide">
+                  <FiBox className="text-[#1769aa] mr-2" size={24} />
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#023047] tracking-wide">
                     Your Box
                   </h3>
                 </div>
                 {box.length > 0 && (
                   <button
                     onClick={handleClearBox}
-                    className="ml-4 px-3 py-1 bg-red-500 text-white rounded-full text-sm hover:bg-red-600 transition"
+                    className="px-3 py-1 bg-red-500 text-white rounded-full text-sm hover:bg-red-600 transition"
                   >
                     Clear Box
                   </button>
@@ -246,14 +245,14 @@ export default function SnackBoxBuilder() {
                   <motion.div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={`grid grid-cols-2 sm:grid-cols-3 gap-6 min-h-[120px] py-2 transition-all duration-300 ${
+                    className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 min-h-[90px] sm:min-h-[120px] py-2 transition-all duration-300 ${
                       snapshot.isDraggingOver ? "bg-[#43addf]/10" : ""
                     }`}
                   >
                     {box.length === 0 && (
-                      <div className="col-span-full flex flex-col items-center justify-center py-10">
+                      <div className="col-span-full flex flex-col items-center justify-center py-6 sm:py-10">
                         <FiBox className="text-[#a7d7ee] mb-2" size={38} />
-                        <span className="text-[#1769aa] font-medium text-lg">
+                        <span className="text-[#1769aa] font-medium text-base sm:text-lg">
                           Your box is empty. Add some snacks!
                         </span>
                       </div>
@@ -274,43 +273,43 @@ export default function SnackBoxBuilder() {
                               animate={{ scale: 1, opacity: 1, y: 0 }}
                               exit={{ scale: 0.7, opacity: 0, y: 40 }}
                               transition={{ type: "spring", stiffness: 120, damping: 14 }}
-                              className={`relative flex flex-col items-center bg-gradient-to-br from-[#e3f6fd] to-[#b6e0fa] rounded-xl border-2 border-[#43addf] shadow-md w-[110px] h-[110px] mx-auto p-2 transition-all
+                              className={`relative flex flex-col items-center bg-gradient-to-br from-[#e3f6fd] to-[#b6e0fa] rounded-xl border-2 border-[#43addf] shadow-md w-full max-w-[110px] h-[90px] sm:h-[110px] mx-auto p-2 transition-all
                                 ${snapshot.isDragging ? "ring-4 ring-[#43addf]/40 scale-105" : ""}
                               `}
-                              style={{ aspectRatio: "1/1", minWidth: 90, minHeight: 90, cursor: "grab" }}
+                              style={{ aspectRatio: "1/1", minWidth: 70, minHeight: 70, cursor: "grab" }}
                             >
                               <button
                                 onClick={() => handleRemoveFromBox(product)}
                                 className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
                                 title="Remove"
                               >
-                                <FiX size={14} />
+                                <FiX size={12} />
                               </button>
                               <img
                                 src={product.image}
                                 alt={product.name}
-                                className="w-10 h-10 object-cover rounded-lg mb-1 pointer-events-none"
+                                className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-lg mb-1 pointer-events-none"
                               />
                               <div className="text-center">
                                 <p className="font-bold text-[#023047] text-xs">{product.name}</p>
                                 <p className="text-[#1769aa] font-semibold text-xs">₹{product.price}</p>
                               </div>
-                              <div className="flex items-center gap-2 mt-1">
+                              <div className="flex items-center gap-1 sm:gap-2 mt-1">
                                 <button
                                   onClick={() => handleDecrease(product)}
                                   className="bg-[#a7d7ee] text-[#023047] rounded-full p-1 hover:bg-[#43addf] hover:text-white"
                                   disabled={product.quantity <= 1}
-                                  style={{ width: 18, height: 18 }}
+                                  style={{ width: 16, height: 16 }}
                                 >
-                                  <FiMinus size={10} />
+                                  <FiMinus size={9} />
                                 </button>
                                 <span className="font-bold text-[#023047] text-xs">{product.quantity}</span>
                                 <button
                                   onClick={() => handleIncrease(product)}
                                   className="bg-[#a7d7ee] text-[#023047] rounded-full p-1 hover:bg-[#43addf] hover:text-white"
-                                  style={{ width: 18, height: 18 }}
+                                  style={{ width: 16, height: 16 }}
                                 >
-                                 <FiPlus size={10} />
+                                 <FiPlus size={9} />
                                 </button>
                               </div>
                             </motion.div>
@@ -335,7 +334,7 @@ export default function SnackBoxBuilder() {
                     />
                 </div>
                 <button
-                  className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition font-semibold"
+                  className="w-full sm:w-auto bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition font-semibold"
                   onClick={handleCreateBox}
                   disabled={loading || box.length === 0}
                 >
@@ -347,18 +346,18 @@ export default function SnackBoxBuilder() {
           </div>
 
           {/* Checkout/Price Summary */}
-          <div className="mt-10 flex justify-center">
+          <div className="mt-8 sm:mt-10 flex flex-col items-center justify-center">
             <motion.div
-              className="w-full max-w-xl bg-gradient-to-tr from-[#1769aa] via-[#43addf] to-[#a7d7ee] p-8 rounded-2xl shadow-xl border-2 border-[#1769aa] flex flex-col items-center"
+              className="w-full max-w-xl bg-gradient-to-tr from-[#1769aa] via-[#43addf] to-[#a7d7ee] p-4 sm:p-8 rounded-2xl shadow-xl border-2 border-[#1769aa] flex flex-col items-center"
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 100, damping: 18 }}
             >
               <div className="flex items-center mb-4">
-                <FiBox className="text-white bg-[#1769aa] rounded-full p-2 mr-3" size={38} />
-                <h3 className="text-xl font-bold text-white drop-shadow">Checkout</h3>
+                <FiBox className="text-white bg-[#1769aa] rounded-full p-2 mr-3" size={32} />
+                <h3 className="text-lg sm:text-xl font-bold text-white drop-shadow">Checkout</h3>
               </div>
-              <div className="flex flex-wrap gap-4 mb-6 justify-center">
+              <div className="flex flex-wrap gap-2 sm:gap-4 mb-6 justify-center">
                 {SUBSCRIPTION_OPTIONS.map(option => (
                   <button
                     key={option.value}
@@ -373,7 +372,7 @@ export default function SnackBoxBuilder() {
                   </button>
                 ))}
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md w-full">
+              <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md w-full">
                 <div className="flex justify-between mb-3">
                   <span className="text-[#023047]">Subtotal:</span>
                   <span className="font-semibold">₹{subtotal}</span>
@@ -382,13 +381,13 @@ export default function SnackBoxBuilder() {
                   <span className="text-[#023047]">Discount:</span>
                   <span className="text-green-600 font-semibold">-₹{discount}</span>
                 </div>
-                <div className="flex justify-between text-xl font-bold pt-3 border-t border-blue-200">
+                <div className="flex justify-between text-lg sm:text-xl font-bold pt-3 border-t border-blue-200">
                   <span className="text-[#023047]">Total:</span>
                   <span className="text-[#1769aa]">₹{total}</span>
                 </div>
                 
                 <button
-                  className="w-full mt-6 bg-gradient-to-r from-[#1769aa] to-[#43addf] text-white py-3 rounded-full font-semibold hover:from-[#023047] hover:to-[#1769aa] transition text-lg shadow"
+                  className="w-full mt-6 bg-gradient-to-r from-[#1769aa] to-[#43addf] text-white py-3 rounded-full font-semibold hover:from-[#023047] hover:to-[#1769aa] transition text-base sm:text-lg shadow"
                   disabled={box.length === 0}
                   onClick={handleCheckout}
                 >
