@@ -30,9 +30,9 @@ export default function Footer() {
       </div>
       {/* Main Grid */}
       <div className="max-w-6xl mx-auto w-full px-4 pb-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 lg:gap-10 items-start">
           {/* Left: Brand & Tagline */}
-          <div className="flex flex-col items-center md:items-start md:justify-between md:h-full">
+          <div className="flex flex-col items-center md:items-start">
             <span className="font-bold text-xl mb-1">Build-a-Box</span>
             <span className="text-sm font-medium text-center md:text-left">
               Build Your Perfect Snack Box<br />
@@ -40,7 +40,7 @@ export default function Footer() {
             </span>
           </div>
           {/* Middle: Quick Links */}
-          <div className="flex flex-col items-center md:items-center">
+          <div className="flex flex-col items-center">
             <h3 className="font-semibold mb-2">Quick Links</h3>
             <ul className="space-y-1 text-center">
               <li>
@@ -63,7 +63,7 @@ export default function Footer() {
             </ul>
           </div>
           {/* Categories Section: 2 columns, compact & centered */}
-          <div className="flex flex-col items-center md:items-center">
+          <div className="flex flex-col items-center">
             <h3 className="font-semibold mb-2">Categories</h3>
             <div className="flex flex-row gap-4 md:gap-6">
               <ul className="space-y-1 text-center">
@@ -95,7 +95,7 @@ export default function Footer() {
             </div>
           </div>
           {/* Right: Contact Us */}
-          <div className="flex flex-col items-center md:items-end md:justify-between md:h-full">
+          <div className="flex flex-col items-center md:items-end">
             <h3 className="font-semibold mb-2">Contact Us</h3>
             <div className="text-sm text-center md:text-right">
               123, Snack Street,<br />
