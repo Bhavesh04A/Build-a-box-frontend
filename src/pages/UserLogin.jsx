@@ -60,8 +60,8 @@ function UserLogin() {
         <p className="text-gray-500 mb-4 sm:mb-6 text-center">Login to your account</p>
         <div className="mb-3 sm:mb-4 text-center text-sm bg-blue-50 border border-blue-300 rounded p-2">
           <div><b>Demo Credentials</b></div>
-          <div>Email: <span className="font-mono">admin@gmail.com</span></div>
-          <div>Password: <span className="font-mono">admin123</span></div>
+          <div>Email: <span className="font-mono">demo@gmail.com</span></div>
+          <div>Password: <span className="font-mono">demo1234</span></div>
         </div>
         <div className="mb-3 sm:mb-4">
           <label className="block mb-1 font-medium">Email</label>
