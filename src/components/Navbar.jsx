@@ -90,7 +90,42 @@ export default function Navbar() {
     loginTimeout.current = setTimeout(() => setShowLogin(false), 120);
   };
 
-  // Responsive Links
+  // Mobile menu nav links with auto-close
+  const navLinksMobile = (
+    <>
+      <Link
+        to="/orders"
+        className="relative flex items-center gap-1 font-medium text-[#023047] hover:text-[#1769aa]"
+        onClick={() => setMobileMenu(false)}
+      >
+        <FiShoppingBag size={22} />
+        <span>Your Orders</span>
+      </Link>
+      <Link
+        to="/your-boxes"
+        className="font-medium text-[#023047] hover:text-[#1769aa]"
+        onClick={() => setMobileMenu(false)}
+      >
+        Your Boxes
+      </Link>
+      <Link
+        to="/about"
+        className="font-medium text-[#023047] hover:text-[#1769aa]"
+        onClick={() => setMobileMenu(false)}
+      >
+        About
+      </Link>
+      <Link
+        to="/contact"
+        className="font-medium text-[#023047] hover:text-[#1769aa]"
+        onClick={() => setMobileMenu(false)}
+      >
+        Contact
+      </Link>
+    </>
+  );
+
+  // Desktop nav links (no change)
   const navLinks = (
     <>
       <Link to="/orders" className="relative flex items-center gap-1 font-medium text-[#023047] hover:text-[#1769aa]">
@@ -147,7 +182,6 @@ export default function Navbar() {
           ) : (
             <div className="flex-1"></div>
           )}
-
           {/* Right Links */}
           <div className="flex items-center gap-6 ml-6">
             {navLinks}
@@ -249,16 +283,16 @@ export default function Navbar() {
       </div>
       {/* Mobile Menu */}
       {mobileMenu && (
-        <div className="md:hidden bg-white shadow-lg px-4 pb-4 pt-2 space-y-2">
+        <div className="md:hidden bg-[#e3f2fd] shadow-lg px-4 pb-4 pt-2 space-y-2">
           <div className="flex flex-col gap-3">
-            {navLinks}
+            {navLinksMobile}
             {user ? (
               <div className="flex flex-col gap-1 mt-2">
                 <span className="font-semibold text-[#023047] flex items-center gap-2"><FiUser />{user.name}</span>
                 {userMenu.map((item) => (
                   <button
                     key={item.label}
-                    className="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#e3f2fd] text-[#023047] transition"
+                    className="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#bbdefb] text-[#023047] transition"
                     onClick={() => {
                       setMobileMenu(false);
                       item.onClick();
@@ -274,7 +308,7 @@ export default function Navbar() {
                 {loginMenu.map((item) => (
                   <button
                     key={item.label}
-                    className="block px-2 py-2 rounded hover:bg-[#e3f2fd] text-[#023047] transition"
+                    className="block px-2 py-2 rounded hover:bg-[#bbdefb] text-[#023047] transition"
                     onClick={() => {
                       setMobileMenu(false);
                       item.onClick();
